@@ -386,11 +386,8 @@ function closeReport(){
 }
 
 async function shareReport(){
-  const content=document.getElementById('reportContent').innerHTML;
-  const w=window.open('','_blank');
-  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:\'Hiragino Sans\',sans-serif;width:100%}'+document.querySelector('style').innerHTML+'</style></head><body><div id="reportContent">'+content+'</div></body></html>');
-  w.document.close();
-  setTimeout(()=>w.print(),800);
+  window.print();
+
 
 
 buildList(LEFT,'leftList',false);
