@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>完了報告書_夢街美装</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#F4F7FA;font-family:'Hiragino Sans','Noto Sans JP',sans-serif;max-width:480px;margin:0 auto}
+input,textarea,button{font-family:inherit}
+.hdr{background:#1a3a5c;padding:16px 20px 12px;position:sticky;top:0;z-index:10}
+.hdr h1{color:#fff;font-size:18px;font-weight:800}
+.hdr small{color:#C9A557;font-size:10px;font-weight:700;letter-spacing:2px;display:block;margin-bottom:2px}
+.steps{display:flex;gap:4px;margin-top:14px}
+.step{flex:1;text-align:center;padding-bottom:6px;cursor:pointer;border-bottom:3px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-size:10px;font-weight:700}
+.step.on{border-bottom-color:#C9A557;color:#C9A557}
+.pg{display:none;padding:20px}
+.pg.on{display:block}
+.card{background:#fff;border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,92,0.07)}
+.ch{background:#1a3a5c;padding:10px 16px;color:#fff;font-weight:700;font-size:13px}
+.fi{margin-bottom:14px}
+.fi label{display:block;font-size:11px;font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.fi input,.fi textarea{width:100%;border:1.5px solid #E8EFF7;border-radius:8px;padding:10px 12px;font-size:14px;color:#1a3a5c;background:#fff;outline:none}
+.fi textarea{resize:none;line-height:1.7}
+.r2{display:flex;gap:10px}
+.r2 .fi{flex:1}
+.btn{width:100%;padding:14px;border-radius:10px;border:none;background:#1a3a5c;color:#fff;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px;display:block}
+.btn-o{background:#fff;border:2px solid #1a3a5c;color:#1a3a5c}
+.btn-g{background:linear-gradient(135deg,#1a3a5c,#2a5a8c);font-size:16px;font-weight:800;padding:18px;box-shadow:0 4px 20px rgba(26,58,92,0.35)}
+.br{display:flex;gap:10px;margin-top:4px}
+.br .btn{margin-top:0}
+.ci{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;border-bottom:1px solid #E8EFF7}
+.ci:last-child{border-bottom:none}
+.ci:nth-child(even){background:#F4F7FA}
+.cb{width:22px;height:22px;border-radius:6px;border:2px solid #C0CEDC;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.cb.on{background:#C9A557;border-color:#C9A557;color:#fff;font-size:14px;font-weight:900}
+.cl{font-size:13px;color:#1a3a5c}
+.cl.dn{color:#8A9BB0;text-decoration:line-through}
+.ar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #E8EFF7}
+.pb{background:#E8EFF7;border-radius:99px;height:8px;overflow:hidden;margin-top:8px}
+.pf{height:100%;background:linear-gradient(90deg,#1a3a5c,#C9A557);border-radius:99px;transition:width .3s}
+.pa{display:flex;gap:10px;padding:14px}
+.ps{flex:1}
+.pl{font-size:11px;font-weight:700;text-align:center;padding:5px 0;border-radius:6px 6px 0 0;letter-spacing:1px}
+.pl.b{background:#8A9BB0;color:#fff}
+.pl.a{background:#C9A557;color:#1a3a5c}
+.px{height:130px;border-radius:0 0 6px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative}
+.px.b{background:#E4EBF4;border:1.5px dashed #B5C5D8;border-top:none}
+.px.a{background:#EEF5EC;border:1.5px dashed #A5C4A0;border-top:none}
+.px img{width:100%;height:100%;object-fit:cover}
+.sm{background:#1a3a5c;border-radius:14px;padding:18px;margin-bottom:20px}
+.sm-t{color:#C9A557;font-weight:800;font-size:13px;margin-bottom:12px}
+.sm-r{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.sm-k{color:rgba(255,255,255,0.6);font-size:12px}
+.sm-v{color:#fff;font-size:12px;font-weight:700}
+.nt{font-size:11px;color:#8A9BB0;text-align:center;line-height:1.6;margin-top:10px}
+.ft{text-align:center;padding-bottom:20px;color:#B0BFCF;font-size:10px}
+</style>
+</head>
+<body>
+<div class="hdr">
+<small>夢街美装</small>
+<h1>作業完了報告書</h1>
+<div class="steps">
+<div class="step on" onclick="gt(0)">基本情報</div>
+<div class="step" onclick="gt(1)">チェック</div>
+<div class="step" onclick="gt(2)">写真</div>
+<div class="step" onclick="gt(3)">特記・出力</div>
+</div>
+</div>
+<div id="p0" class="pg on">
+<div class="card"><div style="padding:18px">
+<div class="fi"><label>物件名</label><input id="property" placeholder="例）グリーンハイツ101"></div>
+<div class="fi"><label>所在地</label><input id="address" placeholder="例）静岡市葵区..."></div>
+<div class="fi"><label>作業日</label><input id="date" type="date"></div>
+<div class="r2">
+<div class="fi"><label>開始時刻</label><input id="timeFrom" type="time"></div>
+<div class="fi"><label>終了時刻</label><input id="timeTo" type="time"></div>
+</div>
+<div class="fi"><label>依頼担当者名</label><input id="client" placeholder="不動産会社 担当者名"></div>
+<div class="fi"><label>作業担当者名</label><input id="worker" placeholder="夢街美装 担当者名"></div>
+</div></div>
+<button class="btn" onclick="gt(1)">チェックリストへ →</button>
+</div>
+<div id="p1" class="pg">
+<div class="card" style="padding:14px 16px">
+<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#1a3a5c;font-weight:700">完了項目</span><span id="cnt" style="font-size:13px;font-weight:800;color:#C9A557">0 / 16</span></div>
+<div class="pb"><div id="pf" class="pf" style="width:0%"></div></div>
+</div>
+<div class="card"><div class="ch">💧 水回り清掃</div><div id="ll"></div></div>
+<div class="card"><div class="ch">🏠 居室・共用部</div><div id="rl"></div></div>
+<div class="br">
+<button class="btn btn-o" onclick="gt(0)">← 戻る</button>
+<button class="btn" onclick="gt(2)">写真へ →</button>
+</div>
+</div>
+<div id="p2" class="pg">
+<p style="font-size:12px;color:#8A9BB0;margin-bottom:16px">各箇所の施工前・後の写真を追加してください</p>
+<div class="card">
+<div class="ch" style="display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:50%;background:#C9A557;display:flex;align-items:center;justify-content:center;color:#1a3a5c;font-weight:800;font-size:12px">1</div>箇所 1</div>
+<div class="pa">
+<div class="ps"><div class="pl b">施工前</div><div class="px b" id="pb0" onclick="document.getElementById('b0').click()"><div style="font-size:28px">🖼️</div><div style="font-size:11px;color:#8A9BB0">写真を追加</div></div><input type="file" id="b0" accept="image/*" style="display:none" onchange="sp(this,'pb0','b0')"></div>
+<div class="ps"><div class="pl a">施工後</div><div class="px a" id="pa0" onclick="document.getElementById('a0').click()"><div style="font-size:28px">🖼️</div><div style="font-size:11px;color:#8A9BB0">写真を追加</div></div><input type="file" id="a0" accept="image/*" style="display:none" onchange="sp(this,'pa0','a0')"></div>
+</div>
+</div>
+<div class="card">
+<div class="ch" style="display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:50%;background:#C9A557;display:flex;align-items:center;justify-content:center;color:#1a3a5c;font-weight:800;font-size:12px">2</div>箇所 2</div>
+<div class="pa">
+<div class="ps"><div class="pl b">施工前</div><div class="px b" id="pb1" onclick="document.getElementById('b1').click()"><div style="font-size:28px">🖼️</div><div style="font-size:11px;color:#8A9BB0">写真を追加</div></div><input type="file" id="b1" accept="image/*" style="display:none" onchange="sp(this,'pb1','b1')"></div>
+<div class="ps"><div class="pl a">施工後</div><div class="px a" id="pa1" onclick="document.getElementById('a1').click()"><div style="font-size:28px">🖼️</div><div style="font-size:11px;color:#8A9BB0">写真を追加</div></div><input type="file" id="a1" accept="image/*" style="display:none" onchange="sp(this,'pa1','a1')"></div>
+</div>
+</div>
+<div class="br">
+<button class="btn btn-o" onclick="gt(1)">← 戻る</button>
+<button class="btn" onclick="gt(3)">特記・出力へ →</button>
+</div>
+</div>
+<div id="p3" class="pg">
+<div class="card"><div class="ch">📝 特記事項</div>
+<div style="padding:14px"><textarea id="notes" rows="4" placeholder="不具合・追加対応・確認事項などをご記入ください" style="width:100%;border:1.5px solid #E8EFF7;border-radius:8px;padding:10px 12px;font-size:13px;color:#1a3a5c;background:#F4F7FA;outline:none;resize:none;line-height:1.7"></textarea></div>
+</div>
+<div class="card"><div class="ch">🛡 品質確認チェック</div><div id="ql"></div></div>
+<div class="sm">
+<div class="sm-t">📋 出力内容の確認</div>
+<div class="sm-r"><span class="sm-k">物件名</span><span class="sm-v" id="sp">—</span></div>
+<div class="sm-r"><span class="sm-k">作業日</span><span class="sm-v" id="sd">—</span></div>
+<div class="sm-r"><span class="sm-k">担当者</span><span class="sm-v" id="sw">—</span></div>
+<div class="sm-r"><span class="sm-k">チェック</span><span class="sm-v" id="sc">0/16項目</span></div>
+<div class="sm-r"><span class="sm-k">エアコン</span><span class="sm-v" id="sa">—</span></div>
+</div>
+<div class="br"><button class="btn btn-o" onclick="gt(2)">← 戻る</button></div>
+<button class="btn btn-g" style="margin-top:10px" onclick="sr()">📄　報告書を表示する</button>
+<p class="nt">表示後に「PDF保存」ボタンを押してください</p>
+</div>
+<div class="ft">夢街美装　TEL 054-298-7605</div>
+
+<script>
+var L=['浴槽・浴室床・壁・扉レール','換気扇（浴室）・鏡','洗面ボウル・蛇口・鏡','排水口・収納外面','便器・タンク・床・壁','換気扇（トイレ）','レンジフード・コンロ','シンク・扉面'];
+var R=['床クリーニング・ワックス仕上げ','窓ガラス・窓枠全箇所','クローゼット内清掃','玄関タイル・下駄箱・ドア面','共用部廊下・エントランス','エアコン清掃','鍵交換','入居前設備チェック・記録'];
+var Q=['翌日担当者による仕上がり確認','施工前後写真の撮影・提出','不備がある場合は無償再対応を実施','作業当日中に報告書を提出'];
+var ck={},ql={},pd={b0:null,a0:null,b1:null,a1:null};
+
+function bl(items,id,ir){
+var c=document.getElementById(id);
+items.forEach(function(item,i){
+var d=document.createElement('div');
+if(item==='エアコン清掃'){
+d.className='ar';
+d.innerHTML='<div class="cb" id="acb"></div><span class="cl" style="flex:1">エアコン清掃</span><input type="number" id="acc" min="0" max="99" placeholder="0" style="width:44px;text-align:center;border:1.5px solid #E8EFF7;border-radius:6px;padding:5px 4px;font-size:14px;color:#1a3a5c;outline:none"><span style="font-size:12px;color:#1a3a5c;margin-left:4px">台</span>';
+d.querySelector('#acb').onclick=function(e){e.stopPropagation();ti('エアコン清掃','acb',null);};
+d.querySelector('.cl').onclick=function(e){e.stopPropagation();ti('エアコン清掃','acb',null);};
+d.querySelector('input').onclick=function(e){e.stopPropagation();};
+d.querySelector('input').oninput=function(){if(this.value){ck['エアコン清掃']=true;var b=document.getElementById('acb');b.classList.add('on');b.textContent='✓';}up();};
+}else{
+var ci='cb'+i+(ir?'r':'l');
+var li='lb'+i+(ir?'r':'l');
+d.className='ci';
+d.innerHTML='<div class="cb" id="'+ci+'"></div><span class="cl" id="'+li+'">'+item+'</span>';
+d.onclick=function(){ti(item,ci,li);};
+}
+c.appendChild(d);
+});
+}
+
+function ti(item,ci,li){
+ck[item]=!ck[item];
+var b=document.getElementById(ci);
+b.classList.toggle('on',ck[item]);
+b.textContent=ck[item]?'✓':'';
+if(li){var l=document.getElementById(li);if(l)l.classList.toggle('dn',ck[item]);}
+up();
+}
+
+function up(){
+var n=L.concat(R).filter(function(i){return ck[i];}).length;
+document.getElementById('cnt').textContent=n+' / 16';
+document.getElementById('pf').style.width=Math.round(n/16*100)+'%';
+}
+
+function bq(){
+var c=document.getElementById('ql');
+Q.forEach(function(item,i){
+var d=document.createElement('div');
+d.className='ci';
+var ci='qb'+i;
+d.innerHTML='<div class="cb" id="'+ci+'"></div><span class="cl">'+item+'</span>';
+d.onclick=function(){ql[item]=!ql[item];var b=document.getElementById(ci);b.classList.toggle('on',ql[item]);b.textContent=ql[item]?'✓':'';};
+c.appendChild(d);
+});
+}
+
+function gt(n){
+document.querySelectorAll('.pg').forEach(function(p,i){p.classList.toggle('on',i===n);});
+document.querySelectorAll('.step').forEach(function(s,i){s.classList.toggle('on',i===n);});
+if(n===3)us();
+window.scrollTo(0,0);
+}
+
+function us(){
+var d=document.getElementById('date').value;
+document.getElementById('sp').textContent=document.getElementById('property').value||'—';
+document.getElementById('sd').textContent=d?new Date(d).toLocaleDateString('ja-JP'):'—';
+document.getElementById('sw').textContent=document.getElementById('worker').value||'—';
+var n=L.concat(R).filter(function(i){return ck[i];}).length;
+document.getElementById('sc').textContent=n+'/16項目完了';
+var ac=document.getElementById('acc')?document.getElementById('acc').value:'';
+document.getElementById('sa').textContent=ac?ac+'台':'—';
+}
+
+function sp(input,bid,key){
+var file=input.files[0];if(!file)return;
+var reader=new FileReader();
+reader.onload=function(e){
+pd[key]=e.target.result;
+var box=document.getElementById(bid);
+box.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.55);color:#fff;font-size:10px;border-radius:4px;padding:2px 6px">タップで変更</div>';
+box.onclick=function(){input.click();};
+};
+reader.readAsDataURL(file);
+}
+
+function sr(){
+var prop=document.getElementById('property').value||'（物件名）';
+var addr=document.getElementById('address').value||'';
+var dt=document.getElementById('date').value;
+var tf=document.getElementById('timeFrom').value;
+var tt=document.getElementById('timeTo').value;
+var cl=document.getElementById('client').value||'';
+var wk=document.getElementById('worker').value||'';
+var nt=document.getElementById('notes').value||'なし';
+var ac=document.getElementById('acc')?document.getElementById('acc').value:'';
+var ds=dt?new Date(dt).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'}):'　年　月　日';
+var ts=tf&&tt?tf+'〜'+tt:'　時〜　時';
+
+var h='<html><head><meta charset="UTF-8"><style>';
+h+='*{margin:0;padding:0;box-sizing:border-box}';
+h+='body{font-family:\'Hiragino Sans\',\'Noto Sans JP\',sans-serif;background:#fff}';
+h+='.s{padding:20px;border-bottom:8px solid #F4F7FA;page-break-after:always}';
+h+='.s:last-child{page-break-after:auto}';
+h+='.hd{background:#1a3a5c;margin:-20px -20px 16px;padding:16px 20px 14px}';
+h+='.hd-g{height:3px;background:#C9A557;margin:10px -20px -14px}';
+h+='.ht{color:#fff;font-size:18px;font-weight:800}';
+h+='.hs{color:#C9A557;font-size:10px;font-style:italic;margin-top:2px}';
+h+='.row{display:flex;align-items:center;padding:8px 10px;border:1px solid #E8EFF7;border-top:none;font-size:11px}';
+h+='.row:first-of-type{border-top:1px solid #E8EFF7}';
+h+='.row:nth-child(even){background:#F4F7FA}';
+h+='.rk{color:#1a3a5c;font-weight:700;width:80px;flex-shrink:0}';
+h+='.rs{width:2px;height:18px;background:#C9A557;margin:0 8px;flex-shrink:0}';
+h+='.rv{color:#1a3a5c;flex:1}';
+h+='.cols{display:flex;gap:6px}';
+h+='.col{flex:1}';
+h+='.col-h{background:#1a3a5c;color:#fff;font-size:10px;font-weight:700;padding:5px 8px}';
+h+='.ck{display:flex;align-items:center;gap:6px;padding:6px 8px;font-size:10px;border-bottom:1px solid #E8EFF7}';
+h+='.ck:nth-child(even){background:#F4F7FA}';
+h+='.cb{width:14px;height:14px;border-radius:3px;border:1.5px solid #C0CEDC;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900}';
+h+='.cb.on{background:#C9A557;border-color:#C9A557;color:#fff}';
+h+='.pr{display:flex;gap:6px;margin-top:8px}';
+h+='.pc{flex:1}';
+h+='.ph{font-size:9px;font-weight:700;text-align:center;padding:3px;border-radius:3px 3px 0 0}';
+h+='.ph.b{background:#8A9BB0;color:#fff}';
+h+='.ph.a{background:#C9A557;color:#1a3a5c}';
+h+='.pi{height:90px;border-radius:0 0 3px 3px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8A9BB0}';
+h+='.pi.b{background:#E4EBF4;border:1px dashed #B5C5D8;border-top:none}';
+h+='.pi.a{background:#EEF5EC;border:1px dashed #A5C4A0;border-top:none}';
+h+='.pi img{width:100%;height:100%;object-fit:cover}';
+h+='.ft{background:#1a3a5c;color:#8A9BB0;font-size:8px;text-align:center;padding:5px;margin:14px -20px -20px}';
+h+='.nt{border:1px solid #E8EFF7;border-top:none;padding:8px 10px;min-height:50px;font-size:11px;color:#1a3a5c}';
+h+='</style></head><body>';
+
+h+='<div class="s" style="background:#1a3a5c;min-height:220px;position:relative;overflow:hidden">';
+h+='<div style="position:absolute;left:0;top:0;width:6px;height:100%;background:#C9A557"></div>';
+h+='<div style="position:absolute;right:0;top:0;width:60px;height:100%;background:#0d2137"></div>';
+h+='<div style="padding:20px 20px 20px 16px">';
+h+='<div style="color:#C9A557;font-size:9px;font-weight:700;letter-spacing:3px;margin-bottom:6px">夢街美装 / Yumemachi Bisou</div>';
+h+='<div style="color:#fff;font-size:28px;font-weight:800;margin-bottom:3px">作業完了報告書</div>';
+h+='<div style="color:#C9A557;font-size:11px;font-style:italic;margin-bottom:16px">Completion Report</div>';
+h+='<div style="height:2px;background:#C9A557;width:150px;margin-bottom:12px"></div>';
+[['物件',prop],['日付',ds],['担当',wk||'（担当者名）']].forEach(function(t){
+h+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><div style="background:#C9A557;color:#1a3a5c;font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;flex-shrink:0">'+t[0]+'</div><div style="color:#fff;font-size:11px">'+t[1]+'</div></div>';
+});
+h+='<div style="color:#8A9BB0;font-size:8px;margin-top:10px">TEL: 054-298-7605 | yumemachibisou.com</div>';
+h+='</div></div>';
+
+h+='<div class="s"><div class="hd"><div class="ht">作業概要</div><div class="hs">Job Summary</div><div class="hd-g"></div></div>';
+[['物件名',prop],['所在地',addr],['作業日時',ds+'　'+ts],['依頼担当者',cl],['作業担当者',wk]].forEach(function(row,i){
+h+='<div class="row"><div class="rk">'+row[0]+'</div><div class="rs"></div><div class="rv">'+row[1]+'</div></div>';
+});
+h+='<div class="ft">夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com</div></div>';
+
+h+='<div class="s"><div class="hd"><div class="ht">作業内容チェックリスト</div><div class="hs">Work Checklist</div><div class="hd-g"></div></div>';
+h+='<div class="cols">';
+[['水回り清掃',L],['居室・共用部',R]].forEach(function(g){
+h+='<div class="col"><div class="col-h">'+g[0]+'</div>';
+g[1].forEach(function(item){
+var isAc=item==='エアコン清掃';
+var label=isAc?'エアコン清掃（'+(ac||'0')+'台）':item;
+var on=ck[item];
+h+='<div class="ck"><div class="cb'+(on?' on':'')+'">'+( on?'✓':'')+'</div><span style="color:'+(on?'#8A9BB0':'#1a3a5c')+'">'+label+'</span></div>';
+});
+h+='</div>';
+});
+h+='</div>';
+h+='<div class="ft">夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com</div></div>';
+
+h+='<div class="s"><div class="hd"><div class="ht">施工前後 写真記録</div><div class="hs">Before / After Photos</div><div class="hd-g"></div></div>';
+[['箇所①','b0','a0'],['箇所②','b1','a1']].forEach(function(g){
+h+='<div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;color:#1a3a5c;margin-bottom:3px">'+g[0]+'</div>';
+h+='<div class="pr">';
+[[g[1],'b','施工前'],[g[2],'a','施工後']].forEach(function(p){
+h+='<div class="pc"><div class="ph '+p[1]+'">'+p[2]+'</div><div class="pi '+p[1]+'">';
+if(pd[p[0]])h+='<img src="'+pd[p[0]]+'">';
+else h+='写真を添付';
+h+='</div></div>';
+});
+h+='</div></div>';
+});
+h+='<div class="ft">夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com</div></div>';
+
+h+='<div class="s"><div class="hd"><div class="ht">特記事項・完了確認</div><div class="hs">Notes & Sign-off</div><div class="hd-g"></div></div>';
+h+='<div style="background:#1a3a5c;color:#fff;font-size:11px;font-weight:700;padding:7px 10px">特記事項（不具合・追加対応・確認事項など）</div>';
+h+='<div class="nt">'+nt+'</div>';
+h+='<div style="background:#1a3a5c;color:#fff;font-size:11px;font-weight:700;padding:7px 10px;margin-top:10px">品質確認チェック</div>';
+Q.forEach(function(item,i){
+var on=ql[item];
+h+='<div class="ck" style="background:'+(i%2===0?'#fff':'#F4F7FA')+'"><div class="cb'+(on?' on':'')+'">'+( on?'✓':'')+'</div><span style="color:#1a3a5c">'+item+'</span></div>';
+});
+h+='<div class="ft">夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com</div></div>';
+h+='</body></html>';
+
+var w=window.open('','_blank');
+if(w){
+w.document.write(h);
+w.document.close();
+w.focus();
+setTimeout(function(){w.print();},1000);
+}else{
+alert('ポップアップを許可してください');
+}
+}
+
+bl(L,'ll',false);
+bl(R,'rl',true);
+bq();
+</script>
+</body>
+</html>
