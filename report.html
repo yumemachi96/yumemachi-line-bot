@@ -372,10 +372,7 @@ function showReport(){
     const on=quality[item];
     html+='<div class="rv-check" style="background:'+(i%2===0?'#fff':'#F4F7FA')+'"><div class="rv-cb'+(on?' on':'')+'">'+( on?'✓':'')+'</div><span>'+item+'</span></div>';
   });
-  html+='<div class="rv-sig">';
-  html+='<div class="rv-sig-box">作業担当者署名<div class="rv-sig-line"></div></div>';
-  html+='<div class="rv-sig-box">確認者署名（翌日確認担当）<div class="rv-sig-line"></div></div>';
-  html+='</div>';
+  
   html+='<div style="background:#1a3a5c;color:#8A9BB0;font-size:8px;text-align:center;padding:6px;margin-top:16px">夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com</div>';
   html+='</div>';
 
@@ -389,16 +386,12 @@ function closeReport(){
 }
 
 async function shareReport(){
-  try{
-    if(navigator.share){
-      await navigator.share({title:'完了報告書｜'+document.getElementById('property').value,url:window.location.href});
-    }else{
-      window.print();
-    }
-  }catch(e){
-    window.print();
-  }
-}
+  const content=document.getElementById('reportContent').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:\'Hiragino Sans\',sans-serif;width:100%}'+document.querySelector('style').innerHTML+'</style></head><body><div id="reportContent">'+content+'</div></body></html>');
+  w.document.close();
+  setTimeout(()=>w.print(),800);
+
 
 buildList(LEFT,'leftList',false);
 buildList(RIGHT,'rightList',true);
