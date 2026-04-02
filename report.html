@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作業完了報告書 | 夢街美装</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundled.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#F4F7FA;font-family:'Hiragino Sans','Noto Sans JP',sans-serif;max-width:480px;margin:0 auto}
+input,textarea,button,select{font-family:inherit}
+.header{background:#1a3a5c;padding:16px 20px 12px;position:sticky;top:0;z-index:10}
+.header h1{color:#fff;font-size:18px;font-weight:800}
+.header small{color:#C9A557;font-size:10px;font-weight:700;letter-spacing:2px;display:block;margin-bottom:2px}
+.steps{display:flex;gap:4px;margin-top:14px}
+.step{flex:1;text-align:center;padding-bottom:6px;cursor:pointer;border-bottom:3px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.5);font-size:10px;font-weight:700}
+.step.active{border-bottom-color:#C9A557;color:#C9A557}
+.page{display:none;padding:20px}
+.page.active{display:block}
+.card{background:#fff;border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:0 2px 12px rgba(26,58,92,0.07)}
+.card-head{background:#1a3a5c;padding:10px 16px;color:#fff;font-weight:700;font-size:13px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;font-weight:700;color:#1a3a5c;margin-bottom:4px;letter-spacing:0.5px}
+.field input,.field textarea{width:100%;border:1.5px solid #E8EFF7;border-radius:8px;padding:10px 12px;font-size:14px;color:#1a3a5c;background:#fff;outline:none}
+.field textarea{resize:none;line-height:1.7}
+.row2{display:flex;gap:10px}
+.row2 .field{flex:1}
+.btn{width:100%;padding:14px;border-radius:10px;border:none;background:#1a3a5c;color:#fff;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px}
+.btn-outline{background:#fff;border:2px solid #1a3a5c;color:#1a3a5c}
+.btn-gold{background:linear-gradient(135deg,#1a3a5c,#2a5a8c);font-size:16px;font-weight:800;padding:18px;box-shadow:0 4px 20px rgba(26,58,92,0.35)}
+.btn-row{display:flex;gap:10px;margin-top:4px}
+.btn-row .btn{margin-top:0}
+.check-item{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;border-bottom:1px solid #E8EFF7}
+.check-item:last-child{border-bottom:none}
+.check-item:nth-child(even){background:#F4F7FA}
+.checkbox{width:22px;height:22px;border-radius:6px;border:2px solid #C0CEDC;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.checkbox.checked{background:#C9A557;border-color:#C9A557;color:#fff;font-size:14px;font-weight:900}
+.check-label{font-size:13px;color:#1a3a5c}
+.check-label.done{color:#8A9BB0;text-decoration:line-through}
+.ac-row{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid #E8EFF7}
+.ac-row:nth-child(even){background:#F4F7FA}
+.ac-input{width:44px;text-align:center;border:1.5px solid #E8EFF7;border-radius:6px;padding:5px 4px;font-size:14px;color:#1a3a5c;outline:none}
+.progress-bar{background:#E8EFF7;border-radius:99px;height:8px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1a3a5c,#C9A557);border-radius:99px;transition:width .3s}
+.photo-area{display:flex;gap:10px;padding:14px}
+.photo-slot{flex:1}
+.photo-label{font-size:11px;font-weight:700;text-align:center;padding:5px 0;border-radius:6px 6px 0 0;letter-spacing:1px}
+.photo-label.before{background:#8A9BB0;color:#fff}
+.photo-label.after{background:#C9A557;color:#1a3a5c}
+.photo-box{height:130px;border-radius:0 0 6px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative}
+.photo-box.before{background:#E4EBF4;border:1.5px dashed #B5C5D8;border-top:none}
+.photo-box.after{background:#EEF5EC;border:1.5px dashed #A5C4A0;border-top:none}
+.photo-box img{width:100%;height:100%;object-fit:cover}
+.photo-box .change-label{position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.55);color:#fff;font-size:10px;border-radius:4px;padding:2px 6px}
+.photo-emoji{font-size:28px;margin-bottom:4px}
+.photo-hint{font-size:11px;color:#8A9BB0}
+.summary{background:#1a3a5c;border-radius:14px;padding:18px;margin-bottom:20px}
+.summary-title{color:#C9A557;font-weight:800;font-size:13px;margin-bottom:12px}
+.summary-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.summary-key{color:rgba(255,255,255,0.6);font-size:12px}
+.summary-val{color:#fff;font-size:12px;font-weight:700}
+.done-screen{min-height:100vh;background:#1a3a5c;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center}
+.note{font-size:11px;color:#8A9BB0;text-align:center;line-height:1.6;margin-top:10px}
+.footer{text-align:center;padding-bottom:20px;color:#B0BFCF;font-size:10px}
+</style>
+</head>
+<body>
+<div class="header">
+  <small>夢街美装</small>
+  <h1>作業完了報告書</h1>
+  <div class="steps">
+    <div class="step active" onclick="goTo(0)">基本情報</div>
+    <div class="step" onclick="goTo(1)">チェック</div>
+    <div class="step" onclick="goTo(2)">写真</div>
+    <div class="step" onclick="goTo(3)">特記・出力</div>
+  </div>
+</div>
+
+<div id="p0" class="page active">
+  <div class="card"><div style="padding:18px">
+    <div class="field"><label>物件名</label><input id="property" placeholder="例）グリーンハイツ101"></div>
+    <div class="field"><label>所在地</label><input id="address" placeholder="例）静岡市葵区..."></div>
+    <div class="field"><label>作業日</label><input id="date" type="date"></div>
+    <div class="row2">
+      <div class="field"><label>開始時刻</label><input id="timeFrom" type="time"></div>
+      <div class="field"><label>終了時刻</label><input id="timeTo" type="time"></div>
+    </div>
+    <div class="field"><label>依頼担当者名</label><input id="client" placeholder="不動産会社 担当者名"></div>
+    <div class="field"><label>作業担当者名</label><input id="worker" placeholder="夢街美装 担当者名"></div>
+  </div></div>
+  <button class="btn" onclick="goTo(1)">チェックリストへ →</button>
+</div>
+
+<div id="p1" class="page">
+  <div class="card" style="padding:14px 16px">
+    <div style="display:flex;justify-content:space-between"><span style="font-size:12px;color:#1a3a5c;font-weight:700">完了項目</span><span id="countLabel" style="font-size:13px;font-weight:800;color:#C9A557">0 / 16</span></div>
+    <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-head">💧 水回り清掃</div>
+    <div id="leftList"></div>
+  </div>
+  <div class="card">
+    <div class="card-head">🏠 居室・共用部</div>
+    <div id="rightList"></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goTo(0)">← 戻る</button>
+    <button class="btn" onclick="goTo(2)">写真へ →</button>
+  </div>
+</div>
+
+<div id="p2" class="page">
+  <p style="font-size:12px;color:#8A9BB0;margin-bottom:16px">各箇所の施工前・後の写真を追加してください</p>
+  <div class="card">
+    <div class="card-head" style="display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:50%;background:#C9A557;display:flex;align-items:center;justify-content:center;color:#1a3a5c;font-weight:800;font-size:12px">1</div>箇所 1</div>
+    <div class="photo-area">
+      <div class="photo-slot"><div class="photo-label before">施工前</div><div class="photo-box before" onclick="triggerPhoto('b0')"><div class="photo-emoji">🖼️</div><div class="photo-hint">写真を追加</div></div><input type="file" id="b0" accept="image/*" style="display:none" onchange="showPhoto(this,'pb0')"></div>
+      <div class="photo-slot"><div class="photo-label after">施工後</div><div class="photo-box after" onclick="triggerPhoto('a0')"><div class="photo-emoji">🖼️</div><div class="photo-hint">写真を追加</div></div><input type="file" id="a0" accept="image/*" style="display:none" onchange="showPhoto(this,'pa0')"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head" style="display:flex;align-items:center;gap:10px"><div style="width:26px;height:26px;border-radius:50%;background:#C9A557;display:flex;align-items:center;justify-content:center;color:#1a3a5c;font-weight:800;font-size:12px">2</div>箇所 2</div>
+    <div class="photo-area">
+      <div class="photo-slot"><div class="photo-label before">施工前</div><div class="photo-box before" onclick="triggerPhoto('b1')"><div class="photo-emoji">🖼️</div><div class="photo-hint">写真を追加</div></div><input type="file" id="b1" accept="image/*" style="display:none" onchange="showPhoto(this,'pb1')"></div>
+      <div class="photo-slot"><div class="photo-label after">施工後</div><div class="photo-box after" onclick="triggerPhoto('a1')"><div class="photo-emoji">🖼️</div><div class="photo-hint">写真を追加</div></div><input type="file" id="a1" accept="image/*" style="display:none" onchange="showPhoto(this,'pa1')"></div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goTo(1)">← 戻る</button>
+    <button class="btn" onclick="goTo(3)">特記・出力へ →</button>
+  </div>
+</div>
+
+<div id="p3" class="page">
+  <div class="card">
+    <div class="card-head">📝 特記事項</div>
+    <div style="padding:14px"><textarea id="notes" rows="4" placeholder="不具合・追加対応・確認事項などをご記入ください" style="width:100%;border:1.5px solid #E8EFF7;border-radius:8px;padding:10px 12px;font-size:13px;color:#1a3a5c;background:#F4F7FA;outline:none;resize:none;line-height:1.7"></textarea></div>
+  </div>
+  <div class="card">
+    <div class="card-head">🛡 品質確認チェック</div>
+    <div id="qualityList"></div>
+  </div>
+  <div class="summary">
+    <div class="summary-title">📋 出力内容の確認</div>
+    <div class="summary-row"><span class="summary-key">物件名</span><span class="summary-val" id="s-property">—</span></div>
+    <div class="summary-row"><span class="summary-key">作業日</span><span class="summary-val" id="s-date">—</span></div>
+    <div class="summary-row"><span class="summary-key">担当者</span><span class="summary-val" id="s-worker">—</span></div>
+    <div class="summary-row"><span class="summary-key">チェック</span><span class="summary-val" id="s-check">0/16項目</span></div>
+    <div class="summary-row"><span class="summary-key">エアコン</span><span class="summary-val" id="s-ac">—</span></div>
+    <div class="summary-row"><span class="summary-key">写真</span><span class="summary-val" id="s-photo">0箇所</span></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-outline" onclick="goTo(2)">← 戻る</button>
+  </div>
+  <button class="btn btn-gold" style="margin-top:10px" onclick="generate()" id="genBtn">📄　完了報告書PPTXを出力する</button>
+  <p class="note">ボタンを押すとPPTXがダウンロードされます<br>そのままLINEやメールで送れます</p>
+</div>
+
+<div class="footer">夢街美装　TEL 054-298-7605</div>
+<script>
+const LEFT=['浴槽・浴室床・壁・扉レール','換気扇（浴室）・鏡','洗面ボウル・蛇口・鏡','排水口・収納外面','便器・タンク・床・壁','換気扇（トイレ）','レンジフード・コンロ','シンク・扉面'];
+const RIGHT=['床クリーニング・ワックス仕上げ','窓ガラス・窓枠全箇所','クローゼット内清掃','玄関タイル・下駄箱・ドア面','共用部廊下・エントランス','エアコン清掃','鍵交換','入居前設備チェック・記録'];
+const QUALITY=['翌日担当者による仕上がり確認','施工前後写真の撮影・提出','不備がある場合は無償再対応を実施','作業当日中に報告書を提出'];
+const checked={},quality={};
+const photoData={b0:null,a0:null,b1:null,a1:null};
+
+function buildList(items,containerId,isRight){
+  const c=document.getElementById(containerId);
+  items.forEach((item,i)=>{
+    if(item==='エアコン清掃'){
+      const d=document.createElement('div');
+      d.className='ac-row';
+      d.innerHTML=`<div class="checkbox" id="cb_${item.replace(/[^a-z0-9]/gi,'_')}" onclick="toggleAc(this,'${item}')"></div><span style="font-size:13px;color:#1a3a5c;flex:1" onclick="toggleAc(document.getElementById('cb_${item.replace(/[^a-z0-9]/gi,'_')}'),'${item}')">エアコン清掃</span><input type="number" id="acCount" min="0" max="99" placeholder="0" style="width:44px;text-align:center;border:1.5px solid #E8EFF7;border-radius:6px;padding:5px 4px;font-size:14px;color:#1a3a5c;outline:none" oninput="if(this.value)toggleOn('${item}')"><span style="font-size:12px;color:#1a3a5c;margin-left:4px">台</span>`;
+      c.appendChild(d);
+    } else {
+      const d=document.createElement('div');
+      d.className='check-item';
+      d.onclick=()=>toggle(item);
+      d.innerHTML=`<div class="checkbox" id="cb_${i}_${isRight?'r':'l'}"></div><span class="check-label" id="lbl_${i}_${isRight?'r':'l'}">${item}</span>`;
+      c.appendChild(d);
+    }
+  });
+}
+
+function toggleOn(item){checked[item]=true;updateProgress();}
+function toggleAc(el,item){checked[item]=!checked[item];el.classList.toggle('checked',checked[item]);el.textContent=checked[item]?'✓':'';updateProgress();}
+function toggle(item){
+  checked[item]=!checked[item];
+  LEFT.forEach((it,i)=>{if(it===item){const cb=document.getElementById(`cb_${i}_l`);const lb=document.getElementById(`lbl_${i}_l`);cb.classList.toggle('checked',checked[item]);cb.textContent=checked[item]?'✓':'';lb.classList.toggle('done',checked[item]);}});
+  RIGHT.forEach((it,i)=>{if(it===item){const cb=document.getElementById(`cb_${i}_r`);const lb=document.getElementById(`lbl_${i}_r`);cb.classList.toggle('checked',checked[item]);cb.textContent=checked[item]?'✓':'';lb.classList.toggle('done',checked[item]);}});
+  updateProgress();
+}
+function updateProgress(){
+  const all=[...LEFT,...RIGHT];
+  const n=all.filter(i=>checked[i]).length;
+  document.getElementById('countLabel').textContent=`${n} / 16`;
+  document.getElementById('progressFill').style.width=`${Math.round(n/16*100)}%`;
+}
+function buildQuality(){
+  const c=document.getElementById('qualityList');
+  QUALITY.forEach((item,i)=>{
+    const d=document.createElement('div');
+    d.className='check-item';
+    d.onclick=()=>{quality[item]=!quality[item];const cb=d.querySelector('.checkbox');cb.classList.toggle('checked',quality[item]);cb.textContent=quality[item]?'✓':'';};
+    d.innerHTML=`<div class="checkbox"></div><span class="check-label">${item}</span>`;
+    c.appendChild(d);
+  });
+}
+function goTo(n){
+  document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('active',i===n));
+  document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('active',i===n));
+  if(n===3)updateSummary();
+  window.scrollTo(0,0);
+}
+function updateSummary(){
+  const d=document.getElementById('date').value;
+  document.getElementById('s-property').textContent=document.getElementById('property').value||'—';
+  document.getElementById('s-date').textContent=d?new Date(d).toLocaleDateString('ja-JP'):'—';
+  document.getElementById('s-worker').textContent=document.getElementById('worker').value||'—';
+  const n=[...LEFT,...RIGHT].filter(i=>checked[i]).length;
+  document.getElementById('s-check').textContent=`${n}/16項目完了`;
+  const ac=document.getElementById('acCount')?document.getElementById('acCount').value:'';
+  document.getElementById('s-ac').textContent=ac?`${ac}台`:'—';
+  const pc=['b0','a0','b1','a1'].filter(k=>photoData[k]).length>0?([photoData.b0||photoData.a0,photoData.b1||photoData.a1].filter(Boolean).length+'箇所'):'0箇所';
+  document.getElementById('s-photo').textContent=pc;
+}
+function triggerPhoto(id){document.getElementById(id).click();}
+function showPhoto(input,boxId){
+  const file=input.files[0];if(!file)return;
+  const key=input.id;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    photoData[key]=e.target.result;
+    const box=input.previousElementSibling;
+    box.innerHTML=`<img src="${e.target.result}"><div class="change-label">タップで変更</div>`;
+    box.onclick=()=>input.click();
+  };
+  reader.readAsDataURL(file);
+}
+async function generate(){
+  const btn=document.getElementById('genBtn');
+  btn.textContent='生成中...';btn.disabled=true;
+  try{
+    const pres=new PptxGenJS();
+    pres.layout='LAYOUT_16x9';
+    const W='FFFFFF',N='1a3a5c',G='C9A557',GR='8A9BB0';
+    const prop=document.getElementById('property').value;
+    const addr=document.getElementById('address').value;
+    const dt=document.getElementById('date').value;
+    const tf=document.getElementById('timeFrom').value;
+    const tt=document.getElementById('timeTo').value;
+    const cl=document.getElementById('client').value;
+    const wk=document.getElementById('worker').value;
+    const nt=document.getElementById('notes').value;
+    const ac=document.getElementById('acCount')?document.getElementById('acCount').value:'';
+    const dateStr=dt?new Date(dt).toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric'}):'　年　月　日';
+    const timeStr=tf&&tt?`${tf}〜${tt}`:'　時〜　時';
+    const ft=s=>{s.addShape(pres.shapes.RECTANGLE,{x:0,y:5.25,w:10,h:0.375,fill:{color:N},line:{color:N,width:0}});s.addText('夢街美装　|　TEL 054-298-7605　|　yumemachibisou.com',{x:0.3,y:5.25,w:9.4,h:0.375,fontSize:8,color:GR,valign:'middle',fontFace:'Calibri',margin:0});};
+    const hd=(s,t,sub)=>{s.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:10,h:0.85,fill:{color:N},line:{color:N,width:0}});s.addShape(pres.shapes.RECTANGLE,{x:0,y:0.85,w:10,h:0.06,fill:{color:G},line:{color:G,width:0}});s.addText(t,{x:0.35,y:0,w:7,h:0.85,fontSize:22,color:W,bold:true,valign:'middle',fontFace:'Calibri',margin:0});s.addText(sub,{x:6.5,y:0,w:3.2,h:0.85,fontSize:11,color:G,italic:true,align:'right',valign:'middle',fontFace:'Calibri',margin:0});};
+    {const s=pres.addSlide();s.background={color:N};s.addShape(pres.shapes.RECTANGLE,{x:0,y:0,w:0.12,h:5.625,fill:{color:G},line:{color:G,width:0}});s.addShape(pres.shapes.RECTANGLE,{x:8.5,y:0,w:1.5,h:5.625,fill:{color:'0d2137'},line:{color:'0d2137',width:0}});s.addShape(pres.shapes.RECTANGLE,{x:0.45,y:1.6,w:3.8,h:0.04,fill:{color:G},line:{color:G,width:0}});s.addShape(pres.shapes.RECTANGLE,{x:0.45,y:3.5,w:3.8,h:0.04,fill:{color:G},line:{color:G,width:0}});s.addText('夢街美装 / Yumemachi Bisou',{x:0.45,y:0.45,w:5.5,h:0.4,fontSize:11,color:G,bold:true,charSpacing:3,fontFace:'Calibri',margin:0});s.addText('作業完了報告書',{x:0.45,y:1.75,w:7.5,h:1.1,fontSize:44,color:W,bold:true,fontFace:'Calibri',margin:0});s.addText('Completion Report',{x:0.45,y:2.7,w:5,h:0.45,fontSize:16,color:G,italic:true,fontFace:'Calibri',charSpacing:4,margin:0});[['物件',prop||'（物件名）'],['日付',dateStr],['担当',wk||'（担当者名）']].forEach((t,i)=>{const y=3.6+i*0.45;s.addText(t[0],{x:0.45,y,w:0.75,h:0.38,fontSize:10,color:N,bold:true,fill:{color:G},align:'center',valign:'middle',margin:0,fontFace:'Calibri'});s.addText(t[1],{x:1.25,y,w:4.0,h:0.38,fontSize:11,color:W,fontFace:'Calibri',margin:[0,0,0,8]});});s.addText('TEL: 054-298-7605\nyumemachibisou.com',{x:6.6,y:4.8,w:3.2,h:0.6,fontSize:9,color:GR,align:'right',fontFace:'Calibri',margin:0});}
+    {const s=pres.addSlide();s.background={color:'F4F7FA'};hd(s,'作業概要','Job Summary');[['物件名',prop],['所在地',addr],['作業日時',`${dateStr}　${timeStr}`],['依頼担当者',cl],['作業担当者',wk]].forEach((row,i)=>{const y=1.15+i*0.73;s.addShape(pres.shapes.RECTANGLE,{x:0.35,y,w:9.3,h:0.6,fill:{color:i%2===0?W:'E8EFF7'},line:{color:'D0DAEA',width:1}});s.addText(row[0],{x:0.95,y,w:1.5,h:0.6,fontSize:11,color:N,bold:true,valign:'middle',fontFace:'Calibri',margin:0});s.addShape(pres.shapes.RECTANGLE,{x:2.45,y:y+0.12,w:0.02,h:0.36,fill:{color:G},line:{color:G,width:0}});s.addText(row[1]||'',{x:2.55,y,w:6.8,h:0.6,fontSize:11,color:N,valign:'middle',fontFace:'Calibri',margin:[0,0,0,8]});});ft(s);}
+    {const s=pres.addSlide();s.background={color:'F4F7FA'};hd(s,'作業内容チェックリスト','Work Checklist');[[' 水回り清掃',LEFT,0.35],['居室・共用部',RIGHT,5.1]].forEach(([title,items,cx])=>{s.addShape(pres.shapes.RECTANGLE,{x:cx,y:1.05,w:4.55,h:0.45,fill:{color:N},line:{color:N,width:0}});s.addText(title,{x:cx+0.1,y:1.05,w:4.35,h:0.45,fontSize:12,color:W,bold:true,valign:'middle',fontFace:'Calibri',margin:0});items.forEach((item,i)=>{const y=1.55+i*0.37;const isAc=item==='エアコン清掃';const label=isAc?`エアコン清掃（${ac||'　　'}台）`:item;const isDone=checked[item];s.addShape(pres.shapes.RECTANGLE,{x:cx,y,w:4.55,h:0.37,fill:{color:i%2===0?W:'E8EFF7'},line:{color:'D0DAEA',width:1}});s.addShape(pres.shapes.RECTANGLE,{x:cx+0.1,y:y+0.08,w:0.22,h:0.22,fill:{color:isDone?G:W},line:{color:isDone?G:'C0CEDC',width:1.5}});if(isDone)s.addText('✓',{x:cx+0.1,y:y+0.04,w:0.22,h:0.28,fontSize:12,color:W,bold:true,align:'center',margin:0});s.addText(label,{x:cx+0.4,y,w:4.0,h:0.37,fontSize:10,color:isDone?GR:N,valign:'middle',fontFace:'Calibri',margin:0});});});ft(s);}
+    {const s=pres.addSlide();s.background={color:'F4F7FA'};hd(s,'施工前後 写真記録','Before / After Photos');['施工前 (Before)','施工後 (After)'].forEach((lbl,ci)=>{const x=0.35+ci*4.85;s.addShape(pres.shapes.RECTANGLE,{x,y:1.05,w:4.45,h:0.38,fill:{color:ci===0?'8A9BB0':G},line:{color:ci===0?'8A9BB0':G,width:0}});s.addText(lbl,{x,y:1.05,w:4.45,h:0.38,fontSize:12,color:W,bold:true,align:'center',valign:'middle',fontFace:'Calibri',margin:0});});for(const [idx,label,y] of [[0,'箇所①',1.48],[1,'箇所②',3.45]]){for(let ci=0;ci<2;ci++){const x=0.35+ci*4.85;const key=ci===0?`b${idx}`:`a${idx}`;const pd=photoData[key];s.addShape(pres.shapes.RECTANGLE,{x,y,w:4.45,h:1.9,fill:{color:ci===0?'E0E7EF':'EEF4F0'},line:{color:ci===0?'B0BEC5':'A5C4AD',width:1.5}});if(pd){const b64=pd.split(',')[1];const mime=pd.split(';')[0].split(':')[1];s.addImage({data:`${mime};base64,${b64}`,x:x+0.05,y:y+0.05,w:4.35,h:1.8,sizing:{type:'contain',w:4.35,h:1.8}});}else{s.addText(ci===0?'施工前写真を添付':'施工後写真を添付',{x,y:y+0.7,w:4.45,h:0.5,fontSize:10,color:GR,align:'center',fontFace:'Calibri',margin:0});}if(ci===0)s.addText(label,{x:x+0.06,y:y+0.06,w:0.8,h:0.28,fontSize:8,color:W,bold:true,align:'center',valign:'middle',fill:{color:N},margin:0,fontFace:'Calibri'});}}ft(s);}
+    {const s=pres.addSlide();s.background={color:'F4F7FA'};hd(s,'特記事項・完了確認','Notes & Sign-off');s.addShape(pres.shapes.RECTANGLE,{x:0.35,y:1.05,w:9.3,h:0.36,fill:{color:N},line:{color:N,width:0}});s.addText('特記事項（不具合・追加対応・確認事項など）',{x:0.45,y:1.05,w:9.1,h:0.36,fontSize:11,color:W,bold:true,valign:'middle',fontFace:'Calibri',margin:0});s.addShape(pres.shapes.RECTANGLE,{x:0.35,y:1.41,w:9.3,h:0.9,fill:{color:W},line:{color:'D0DAEA',width:1}});if(nt)s.addText(nt,{x:0.45,y:1.45,w:9.1,h:0.82,fontSize:10,color:N,fontFace:'Calibri',margin:0});s.addShape(pres.shapes.RECTANGLE,{x:0.35,y:2.4,w:9.3,h:0.36,fill:{color:N},line:{color:N,width:0}});s.addText('品質確認チェック',{x:0.45,y:2.4,w:9.1,h:0.36,fontSize:11,color:W,bold:true,valign:'middle',fontFace:'Calibri',margin:0});QUALITY.forEach((item,i)=>{const y=2.82+i*0.38;const done=quality[item];s.addShape(pres.shapes.RECTANGLE,{x:0.35,y,w:9.3,h:0.36,fill:{color:i%2===0?W:'E8EFF7'},line:{color:'D0DAEA',width:1}});s.addShape(pres.shapes.RECTANGLE,{x:0.45,y:y+0.07,w:0.22,h:0.22,fill:{color:done?G:W},line:{color:done?G:'C0CEDC',width:1.5}});if(done)s.addText('✓',{x:0.45,y:y+0.03,w:0.22,h:0.28,fontSize:12,color:W,bold:true,align:'center',margin:0});s.addText(item,{x:0.75,y,w:8.7,h:0.36,fontSize:10,color:N,valign:'middle',fontFace:'Calibri',margin:0});});[['作業担当者署名',0.35],['確認者署名（翌日確認担当）',5.35]].forEach(([lbl,x])=>{s.addShape(pres.shapes.RECTANGLE,{x,y:4.42,w:4.3,h:0.6,fill:{color:W},line:{color:'D0DAEA',width:1}});s.addText(lbl,{x:x+0.1,y:4.45,w:4.1,h:0.25,fontSize:9,color:GR,fontFace:'Calibri',margin:0});s.addShape(pres.shapes.RECTANGLE,{x:x+0.1,y:4.82,w:3.2,h:0.02,fill:{color:N},line:{color:N,width:0}});});ft(s);}
+    await pres.writeFile({fileName:`完了報告書_${prop||'物件'}_${dt||'日付未入力'}.pptx`});
+    btn.textContent='✓ 完了！もう一度出力する';btn.disabled=false;
+  }catch(e){alert('エラー: '+e.message);btn.textContent='📄　完了報告書PPTXを出力する';btn.disabled=false;}
+}
+buildList(LEFT,'leftList',false);
+buildList(RIGHT,'rightList',true);
+buildQuality();
+</script>
+</body>
+</html>
